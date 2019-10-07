@@ -12,22 +12,23 @@
     "@babel/core": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
+    "autoprefixer": "^9.6.4",
     "babelify": "^10.0.0",
     "browser-sync": "^2.26.7",
     "browserify": "^16.5.0",
+    "cssnano": "^4.1.10",
     "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-if": "^3.0.0",
+    "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
     "gulp-uglify": "^3.0.2",
     "node-sass": "^4.12.0",
     "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0",
-    "yargs": "^14.0.0"
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "angular": "^1.7.8"
+    "angular": "^1.7.8",
+    "uikit": "^3.2.1"
   }
 }

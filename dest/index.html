@@ -1,19 +1,76 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="ratingApp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./assets/styles/style.css">
+    <link rel="stylesheet" href="./assets/styles/common.min.css">
+    <link rel="stylesheet" href="./assets/styles/index.min.css">
     <title>Project</title>
 </head>
-<body>
-    <label>Введите имя:</label>
-    <input type="text" ng-model="name" placeholder="Введите имя">
+<body ng-controller="ratingController">
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="#" class="uk-logo" id="project">Project</a>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="container">
+            <div class="form" id="form">
+                <label for="subject" class="uk-form-label">Введите название предмета:</label>
+                <div class="uk-form-controls">
+                    <input 
+                        type="text" 
+                        name="subject" 
+                        class="uk-input uk-width-1-3" 
+                        ng-focus="clearSubjectInput()"
+                        ng-blur="validateString(subject)"
+                        id="subject"
+                        ng-model="subject">
+                </div>
 
-    <h1>Добро пожаловать, {{name}}!</h1>
+                <label for="ratingNum" class="uk-form-label">Введите количество оценок: (число от 0 до 20)</label>
+                <div class="uk-form-controls">
+                    <input 
+                        type="text" 
+                        name="ratingNum"
+                        class="uk-input uk-width-1-6"
+                        ng-focus="clearNumberRatingInput()"
+                        ng-blur="validateNumberRating(ratingNum)"
+                        id="ratingNum"
+                        ng-model="ratingNum">
+                </div>
+
+                <div class="header__scroll-rating">
+                    <ratinglist>
+
+                    </ratinglist>
+                    <!-- <div class="scroll-rating rating" ng-repeat="rating in ratings | filter:ratingFilter">
+                        <label for="rating_{{ rating.id }}">Оценка {{ rating.id + 1 }}</label>
+                        <input 
+                            type="text"
+                            name="rating_{{ rating.id }}" 
+                            class="rating-input"
+                            ng-focus="clearRatingInput()"
+                            ng-blur="validateRating(rating.value, rating.id)"
+                            id="rating_{{ rating.id }}"
+                            ng-module="rating.value">
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="uk-container">
+            <div id="ya-share2"></div>
+        </div>
+    </div>
+
+    <script src="./assets/scripts/common.min.js"></script>
+    <script src="https://yastatic.net/share2/share.js"></script>
 
     <script src="./assets/scripts/index.min.js"></script>
-    <script src="./assets/scripts/common.min.js"></script>
 </body>
 </html>

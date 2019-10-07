@@ -3,15 +3,18 @@ const concat = require('gulp-concat');
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
 
-const source = require('vinyl-source-stream');
-const buffer = require('vinyl-buffer');
-
 const browserSync = require('browser-sync').create();
 
 const sass = require('gulp-sass');
 sass.compiler = require('node-sass');
 
 const browserify = require("browserify");
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 
 const assets = 'dest/assets/';
 
@@ -24,9 +27,43 @@ function server(cb)
     });
     
     watch('src/page/*.html', html);
-    watch('src/page/*.scss', css);
-    watch('src/page/index.js', js);
+    watch([
+        'src/page/*.scss', 
+        'src/common.blocks/**/*.scss', 
+        'src/assets/css/*.scss'], css);
 
+    watch([
+        'src/page/index.js', 
+        'src/common.blocks/**/*.js', 
+        'src/assets/js/*.js', 
+        'src/assets/js/**/*.js', 
+        '!src/assets/js/libs/*.js'], js);
+
+    cb();
+}
+
+function img(cb) 
+{
+    src(['src/assets/images/*.jpg', 
+    'src/assets/images/*.png', 
+    'src/assets/images/*.svg', 
+    'src/assets/images/*.gif'])
+    
+        .pipe(dest(`${assets}images`));
+
+    cb();
+}
+
+function fonts(cb) 
+{
+    src([
+        'src/assets/fonts/*.woff', 
+        'src/assets/fonts/*.ttf', 
+        'src/assets/fonts/*.eot', 
+        'src/assets/fonts/*.svg'])
+
+        .pipe(dest(`${assets}fonts`));
+        
     cb();
 }
 
@@ -41,8 +78,13 @@ function html(cb)
 
 function cssLib(cb)
 {
-    src('src/assets/css/libs/*.scss')
-        .pipe(sass().on('error', sass.logError))
+    src(['src/assets/css/*.css', '!src/assets/css/libs/*.min.css'])
+        .pipe(concat('common.min.css'))
+        .pipe(postcss([ autoprefixer(), cssnano() ]))
+        .pipe(dest(`${assets}styles`));
+
+    src('src/assets/css/libs/*.min.css', 'dest/assets/styles/common.min.css')
+        .pipe(concat('common.min.css'))
         .pipe(dest(`${assets}styles`));
 
     cb();
@@ -52,7 +94,8 @@ function css(cb)
 {
     src('src/page/*.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(concat('style.css'))
+        .pipe(concat('index.min.css'))
+        .pipe(postcss([ autoprefixer(), cssnano() ]))
         .pipe(dest(`${assets}styles`))
         .pipe(browserSync.reload({stream:true}));
 
@@ -61,9 +104,12 @@ function css(cb)
 
 function jsLib(cb)
 {
-    src(['src/assets/libs/*.js'])
+    src(['src/assets/js/libs/*.js', '!src/assets/js/libs/*.min.js'])
         .pipe(concat('common.min.js'))
-        .pipe(uglify().on('error', console.error))
+        .pipe(dest(`${assets}scripts`));
+
+    src(['src/assets/js/libs/*.min.js'])
+        .pipe(concat('common.min.js'))
         .pipe(dest(`${assets}scripts`));
 
     cb();
@@ -84,4 +130,4 @@ function js(cb)
     cb();
 }
 
-exports.default = series(parallel(js, jsLib, css, cssLib, html), server);
+exports.default = series(parallel(js, jsLib, css, cssLib, html, img, fonts), server);
