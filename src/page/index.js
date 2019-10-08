@@ -5,5 +5,5 @@ const scrollRating = require('../common.blocks/scrollRating/scrollRating');
 
 let app = angular.module('ratingApp', []);
 
-app.controller('ratingController', ['$scope', ratingController]);
+app.controller('ratingController', ['$scope', '$http', ratingController]);
 app.directive('scrollRating', scrollRating);

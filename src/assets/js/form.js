@@ -1,5 +1,6 @@
 const numRating = $('#ratingNum');
 const subject = $('#subject');
+
 const numEmploy = $('#numEmploy');
 const numSuccessEmploy = $('#numSuccessEmploy');
 
@@ -15,7 +16,7 @@ const dangerForm = "uk-form-danger";
 const drop = $('#lessonDropdown');
 
 function validateNumberRating(value) {
-    if(isNaN(value) || value < MIN_RATING_NUM || value > MAX_RATING_NUM)
+    if(value === "" || isNaN(value) || value < MIN_RATING_NUM || value > MAX_RATING_NUM)
         numRating.addClass(dangerForm);
 }
 
@@ -25,35 +26,30 @@ function validateString(str, lessons) {
 }
 
 function validateRating(value, id) {
-    if(isNaN(value) || value < MIN_RATING || value > MAX_RATING) {
+    if(value === "" || isNaN(value) || value < MIN_RATING || value > MAX_RATING) {
         $('#rating_' + id).removeClass('answered');
-        return $('#rating_' + id).addClass(dangerForm);
+        $('#rating_' + id).addClass(dangerForm)
+
+        return true;
     }
-    
-    return $('#rating_' + id).addClass('answered');
-}
 
-function clearRatingInput(id) {
-    clearInput($('#rating_' + id));
-}
-
-function clearInput(elem) {
-    elem.removeClass(dangerForm);
+    $('#rating_' + id).addClass('answered')
+    return false;
 }
 
 function validateNumEmploy(value) {
-    if(isNaN(value))
+    if(value === "" || isNaN(value))
         return numEmploy.addClass(dangerForm);
 }
 
 function validateNumSuccessEmploy(value) {
-    if(isNaN(value) || isNaN(numEmploy.val()))
+    if(value === "" || numEmploy.val() === "" || isNaN(value) || isNaN(numEmploy.val()))
         return numSuccessEmploy.addClass(dangerForm);
 }
 
 function validateForm(lessons) {
-    validateNumberRating(numRating.val());
     validateString(subject.val(), lessons);
+    validateNumberRating(numRating.val());
     validateNumEmploy(numEmploy.val());
     validateNumSuccessEmploy(numSuccessEmploy.val());
 
@@ -61,16 +57,31 @@ function validateForm(lessons) {
     ratings.each((indx, elem) => validateRating($(elem).val(), indx));
 
     if($('.' + dangerForm).length == 0) {
-        console.log(1);
+        return true;
     } else {
-        console.log(0);
+        UIkit.notification("<span uk-icon='icon: check'></span> Введите корректные данные!");
+        return false;
     }
+}
+
+function validateRatingAll(num, success) {
+    if(num != success) $('#label').addClass('uk-text-danger');
+}
+
+function clearRatingInput(id) {
+    clearInput($('#rating_' + id));
+    $('#label').removeClass('uk-text-danger');
+}
+
+function clearInput(elem) {
+    elem.removeClass(dangerForm);
 }
 
 module.exports = {
     validateNumberRating: validateNumberRating,
     validateString: validateString,
     validateRating: validateRating,
+    validateRatingAll: validateRatingAll,
     validateNumEmploy: validateNumEmploy,
     validateNumSuccessEmploy: validateNumSuccessEmploy,
     validateForm: validateForm,

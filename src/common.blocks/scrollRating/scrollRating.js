@@ -15,13 +15,18 @@ module.exports = function() {
                     scope.ratingNum = form.maxRatingNum;
 
                 while(!isNaN(scope.ratingNum) && scope.ratings.length != scope.ratingNum) {
-                    if(scope.ratings.length > scope.ratingNum) scope.ratings.pop();
+                    if(scope.ratings.length > scope.ratingNum) {
+                        if(!form.validateRating(scope.ratings[scope.ratings.length - 1].value, scope.ratings[scope.ratings.length - 1].id))
+                            scope.ratingSuccess--;
+                        scope.ratings.pop();
+                    }
                     else scope.ratings.push({
                         id: scope.ratings.length,
                         value: ""
                     });
                 }
 
+                form.validateRatingAll(scope.ratingNum, scope.ratingSuccess);
             }
 
             scope.ratingFilter = elem => elem.id < scope.ratingNum;
@@ -30,6 +35,7 @@ module.exports = function() {
                 form.validateRating(val, id);
 
                 scope.ratingSuccess = $('.rating-input.answered').length;
+                form.validateRatingAll(scope.ratingNum, scope.ratingSuccess);
             }
         }
     }

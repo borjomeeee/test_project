@@ -1,8 +1,9 @@
 <div class="header__scroll-rating uk-width-1-2" uk-slideshow>
-    <div class="scroll-rating__success" ng-show="ratingNum">Отвечено {{ ratingSuccess }} / {{ ratingNum }}</div>
+    <div id="label" class="scroll-rating__success" ng-show="ratingNum">Отвечено {{ ratingSuccess }} / {{ ratingNum }}</div>
     <ul class="uk-slideshow-items scroll-rating uk-flex uk-flex-middle uk-form-stacked">
-        <li class="scroll-rating__rating" ng-repeat="rating in ratings">
-            <!-- <img src="" alt=""> -->
+        <li 
+            class="scroll-rating__rating" 
+            ng-repeat="rating in ratings">
             <div class="uk-card uk-flex uk-flex-center">
                     <input
                     type="text"

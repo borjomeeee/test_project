@@ -77,7 +77,7 @@
                                 ng-model="numEmploy">
                         </div>
                     </div>
-                    <div class="input-num-sucess-employ">
+                    <div class="input-num-sucess-employ uk-width-1-2">
                         <label for="numSuccessEmploy" class="uk-form-label">Из них по уважительной причине:</label>
                         <div class="uk-form-controls">
                             <input 
@@ -92,7 +92,40 @@
                         </div>
                     </div>
                 </div>
-                <button class="uk-button uk-button-default uk-margin-top" type="submit" id="submit" ng-click="validateForm()">Узнать результат</button>
+                <div class="row uk-flex uk-flex-between uk-margin-top">
+                    <button 
+                        class="uk-button uk-button-default" 
+                        type="button" 
+                        id="submit" 
+                        ng-click="validateForm()">Узнать результат</button>
+                    <button 
+                        class="uk-button uk-button-default" 
+                        type="button" 
+                        id="showTable" 
+                        ng-show="checkUsers()" 
+                        ng-click="showTable()">Показать результаты</button>
+                </div>
+            </div>
+            <div class="row uk-margin-top">
+                <table class="table uk-table uk-table-striped uk-animation-slide-top-medium" ng-show="table">
+                    <caption>Результаты (зачет ставится при ср. балл > 4 и кол-ве пропущенных < 10%)</caption>
+                    <thead>
+                        <tr>
+                            <th>Предмет</th>
+                            <th>Ср.балл</th>
+                            <th>Кол-во пропущенных</th>
+                            <th>Оценка</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in users">
+                            <td>{{ user.subject }}</td>
+                            <td>{{ user.abcRating }}</td>
+                            <td>{{ user.numEmployProcent }}%</td>
+                            <td>{{ user.grade }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
