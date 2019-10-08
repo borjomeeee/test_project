@@ -1,0 +1,22 @@
+<div class="header__scroll-rating uk-flex uk-flex-middle" uk-slideshow>
+    <ul class="uk-slideshow-items scroll-rating uk-flex uk-flex-middle uk-form-stacked">
+        <li class="scroll-rating__rating" ng-repeat="rating in ratings">
+            <!-- <img src="" alt=""> -->
+            <div class="uk-card uk-flex uk-flex-center">
+                    <input
+                    type="text"
+                    name="rating_{{ rating.id }}"
+                    class="rating-input uk-form-controls"
+                    ng-focus="clearRatingInput(rating.id)"
+                    ng-blur="validateRating(rating.value, rating.id)"
+                    id="rating_{{ rating.id }}"
+                    maxlength="1"
+                    ng-model="rating.value">
+            </div>
+            <label for="rating_{{ rating.id }}" class="uk-form-label">Оценка {{ rating.id + 1 }}</label>
+        </li>
+    </ul>
+
+    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+</div>

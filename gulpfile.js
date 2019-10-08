@@ -26,7 +26,7 @@ function server(cb)
         }
     });
     
-    watch('src/page/*.html', html);
+    watch(['src/page/*.html', 'src/common.blocks/**/*.html'], html);
     watch([
         'src/page/*.scss', 
         'src/common.blocks/**/*.scss', 
@@ -73,6 +73,13 @@ function html(cb)
         .pipe(dest('dest'))
         .pipe(browserSync.reload({stream:true}));
 
+    src('src/common.blocks/**/*.html')
+        .pipe(rename(function(path) {
+            path.dirname = "";
+        }))
+        .pipe(dest(`${assets}blocks`))
+        .pipe(browserSync.reload({stream:true}));
+
     cb();
 }
 
@@ -92,9 +99,12 @@ function cssLib(cb)
 
 function css(cb)
 {
-    src('src/page/*.scss')
+    src(['src/page/*.scss', 'src/common.blocks/**/*.scss'])
         .pipe(sass().on('error', sass.logError))
         .pipe(concat('index.min.css'))
+        .pipe(rename(function(path) {
+            path.dirname = "";
+        }))
         .pipe(postcss([ autoprefixer(), cssnano() ]))
         .pipe(dest(`${assets}styles`))
         .pipe(browserSync.reload({stream:true}));
