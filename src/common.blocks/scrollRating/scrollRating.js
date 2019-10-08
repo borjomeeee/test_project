@@ -6,6 +6,7 @@ module.exports = function() {
         templateUrl: './assets/blocks/scrollRating.html',
         link: function(scope) {
             scope.ratings = [];
+            scope.ratingSuccess = 0;
 
             scope.ratingCreate = function() {
                 if(scope.ratingNum < form.minRatingNum)
@@ -20,11 +21,16 @@ module.exports = function() {
                         value: ""
                     });
                 }
+
             }
 
             scope.ratingFilter = elem => elem.id < scope.ratingNum;
             scope.clearRatingInput = form.clearRatingInput;
-            scope.validateRating = form.validateRating;
+            scope.validateRating = (val, id) => {
+                form.validateRating(val, id);
+
+                scope.ratingSuccess = $('.rating-input.answered').length;
+            }
         }
     }
 };

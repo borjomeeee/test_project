@@ -1,21 +1,28 @@
 .header__scroll-rating
 {
     position: relative;
-    width: 175px;
-    height: 60px;
+    width: 200px;
 }
 
-.scroll-rating {
+.scroll-rating 
+{
     width: 100%;
     min-height: 60px !important;
 }
 
-.uk-form-label, .rating-input {
-    margin: 0px auto;
+.uk-form-label, .rating-input, .scroll-rating__success
+{
+    // margin: 0px auto;
     text-align: center;
 }
 
-.rating-input {
+.rating-input 
+{
     height: 30px;
     width: 30px;
+}
+
+.scroll-rating__success
+{
+    margin-bottom: 10px;
 }

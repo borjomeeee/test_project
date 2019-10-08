@@ -19,32 +19,40 @@
     <div class="section">
         <div class="container">
             <div class="form" id="form">
-                <label for="subject" class="uk-form-label">Введите название предмета:</label>
-                <div class="uk-form-controls">
-                    <input 
-                        type="text" 
-                        name="subject" 
-                        class="uk-input uk-width-1-3" 
-                        ng-focus="clearSubjectInput()"
-                        ng-blur="validateString(subject)"
-                        id="subject"
-                        ng-model="subject">
+                <div class="row" uk-grid>
+                    <div class="input-subject uk-width-1-1">
+                        <label for="subject" class="uk-form-label">Введите название предмета:</label>
+                        <div class="uk-form-controls">
+                            <input 
+                                type="text" 
+                                name="subject" 
+                                class="uk-input uk-width-1-1" 
+                                ng-focus="clearSubjectInput()"
+                                ng-blur="validateString(subject)"
+                                id="subject"
+                                ng-model="subject">
+                        </div>
+                    </div>
                 </div>
 
-                <label for="ratingNum" class="uk-form-label">Введите количество оценок: (число от 0 до 20)</label>
-                <div class="uk-form-controls">
-                    <input 
-                        type="number" 
-                        name="ratingNum"
-                        class="uk-input uk-width-1-6"
-                        ng-focus="clearNumberRatingInput()"
-                        ng-blur="validateNumberRating(ratingNum)"
-                        ng-change="ratingCreate()"
-                        id="ratingNum"  
-                        ng-model="ratingNum">
+                <div class="row uk-grid-collapse uk-flex-between uk-margin-top" uk-grid>
+                    <div class="input-ratingnum uk-width-1-2">
+                        <label for="ratingNum" class="uk-form-label">Введите количество оценок: (число от 0 до 20)</label>
+                        <div class="uk-form-controls">
+                            <input 
+                                type="number" 
+                                name="ratingNum"
+                                class="uk-input uk-width-1-1"
+                                ng-focus="clearNumberRatingInput()"
+                                ng-blur="validateNumberRating(ratingNum)"
+                                ng-change="ratingCreate()"
+                                id="ratingNum"  
+                                ng-model="ratingNum">
+                        </div>
+                    </div>
+    
+                    <scroll-rating class="uk-flex uk-flex-middle"></scroll-rating>
                 </div>
-
-                <scroll-rating></scroll-rating>
             </div>
         </div>
     </div>

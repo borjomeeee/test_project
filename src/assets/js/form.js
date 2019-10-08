@@ -22,9 +22,17 @@ function validateString(str) {
 }
 
 function validateRating(value, id) {
-    if(!value || value.length == 0) return "";
-    if(isNaN(value) || value < MIN_RATING || value > MAX_RATING)
+    if(!value || value.length == 0) {
+        $('#rating_' + id).removeClass('answered')
+        return "";
+    }
+    
+    if(isNaN(value) || value < MIN_RATING || value > MAX_RATING) {
+        $('#rating_' + id).removeClass('answered');
         return $('#rating_' + id).addClass(dangerForm);
+    }
+    
+    return $('#rating_' + id).addClass('answered');
 }
 
 function clearRatingInput(id) {
