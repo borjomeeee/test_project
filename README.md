@@ -1,6 +1,6 @@
 # test_project
 # build & start
-# npm clone https://github.com/borjomeeee/test_project.git
+# git clone https://github.com/borjomeeee/test_project.git
 # npm i
 # npm start
 # 
