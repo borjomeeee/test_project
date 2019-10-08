@@ -1,9 +1,0 @@
-[
-    {
-        "subject": "$scope.subject",
-        "ratingNum": "$scope.ratingNum",
-        "ratings": "$scope.ratings",
-        "numEmploy": "$scope.numEmploy",
-        "numSuccessEmploy": "$scope.numSuccessEmploy"
-    }
-]

@@ -9,6 +9,7 @@ module.exports = function() {
             scope.ratingSuccess = 0;
 
             scope.ratingCreate = function() {
+                if(!scope.ratingNum || isNaN(scope.ratingNum)) scope.ratingNum = 0;
                 if(scope.ratingNum < form.minRatingNum)
                     scope.ratingNum = form.minRatingNum;
                 else if(scope.ratingNum > form.maxRatingNum)

@@ -2,18 +2,44 @@ const validate = require('../form');
 const Alghoritms = require('../alghoritms');
 
 let lessons = [
-    "Философия",
-    "Высшая математика",
-    "Физика",
-    "Программирование",
-    "Английский язык",
-    "История"
+    [   "Философия 1",
+        "Высшая математика 1",
+        "Физика 1",
+        "Программирование 1",
+        "Английский язык 1",
+        "История 1"
+    ], 
+    [   "Философия 2",
+        "Высшая математика 2",
+        "Физика 2",
+        "Программирование 2",
+        "Английский язык 2",
+        "История 2"
+    ],
+    [   "Философия 3",
+        "Высшая математика 3",
+        "Физика 3",
+        "Программирование 3",
+        "Английский язык 3",
+        "История 3"
+    ],
+    [   "Философия 4",
+        "Высшая математика 4",
+        "Физика 4",
+        "Программирование 4",
+        "Английский язык 4",
+        "История 4"
+    ]
 ]
 
+let courses = [1, 2, 3, 4];
+
 module.exports = function($scope, $http) {
-    $scope.lessons = lessons;
+    $scope.lessons = lessons[0];
     $scope.users = [];
     $scope.table = false;
+    $scope.courses = courses;
+    $scope.currCourse = courses[0];
 
     $scope.validateNumberRating = (num) => {
         validate.validateNumberRating(num);
@@ -29,6 +55,12 @@ module.exports = function($scope, $http) {
 
     $scope.clearNumSuccessEmploy = validate.clearNumSuccessEmploy;
     $scope.validateNumSuccessEmploy = validate.validateNumSuccessEmploy;
+
+    $scope.enterCourse = function(course) {
+        $scope.currCourse = $scope.courses[course];
+        $scope.lessons = lessons[$scope.currCourse - 1];
+        $scope.subject = "";
+    }
 
     $scope.enterLesson = function(lesson) {
         $scope.subject = lesson;
@@ -62,9 +94,10 @@ module.exports = function($scope, $http) {
     }
 
     $scope.validateForm = () => {
-        if(validate.validateForm(lessons)) {
+        if(validate.validateForm($scope.lessons)) {
 
             let user = new Object({
+                course: $scope.currCourse,
                 subject: $scope.subject,
                 abcRating: Alghoritms.abcRating($scope.ratings),
                 numEmploy: $scope.numEmploy,
@@ -79,13 +112,14 @@ module.exports = function($scope, $http) {
                     return status = true;
             });
 
-            if(!status) $scope.users.push(user);
-
-            $http.post('data/check.php', $scope.users).then(function(responce) {
-                console.log(responce);
-            }, function(error) {
-                console.log(error);
-            })
+            if(!status) {
+                $scope.users.push(user);
+                $http.post('data/check.php', $scope.users).then(function(responce) {
+                    console.log(responce);
+                }, function(error) {
+                    console.log(error);
+                })
+            } 
         }
     };
 }

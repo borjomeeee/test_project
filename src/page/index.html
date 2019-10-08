@@ -10,9 +10,21 @@
 </head>
 <body ng-controller="ratingController">
     <div class="header">
-        <div class="container">
+        <div class="container uk-flex uk-flex-between uk-flex-middle">
             <div class="logo">
                 <a href="#" class="uk-logo logo" id="project">Project</a>
+            </div>
+            <div class="course">
+                <div class="currCourse" ng-model="currCourse">
+                    {{ currCourse }} курс
+                </div>
+                <div id="courseDropdown" uk-dropdown="mode: hover">
+                    <ul class="uk-nav uk-dropdown-nav">
+                        <li ng-repeat="course in courses">
+                            <a class="uk-dropdown-close" ng-click="enterCourse($index)">{{ course }} курс</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -111,18 +123,18 @@
                     <caption>Результаты (зачет ставится при ср. балл > 4 и кол-ве пропущенных < 10%)</caption>
                     <thead>
                         <tr>
-                            <th>Предмет</th>
-                            <th>Ср.балл</th>
-                            <th>Кол-во пропущенных</th>
-                            <th>Оценка</th>
+                            <th class="result-col">Предмет</th>
+                            <th class="result-col">Ср.балл</th>
+                            <th class="result-col">Кол-во пропущенных</th>
+                            <th class="result-col">Оценка</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="result-body">
                         <tr ng-repeat="user in users">
-                            <td>{{ user.subject }}</td>
-                            <td>{{ user.abcRating }}</td>
-                            <td>{{ user.numEmployProcent }}%</td>
-                            <td>{{ user.grade }}</td>
+                            <td class="result-col">{{ user.subject }}</td>
+                            <td class="result-col">{{ user.abcRating }}</td>
+                            <td class="result-col">{{ user.numEmployProcent }}%</td>
+                            <td class="result-col">{{ user.grade }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -130,7 +142,7 @@
         </div>
     </div>
     <div class="footer">
-        <div class="container">
+        <div class="container uk-flex uk-flex-center uk-flex-middle">
             <div id="ya-share2"></div>
         </div>
     </div>

@@ -4,11 +4,13 @@
     margin: 0px auto;
     padding: 10px 20px;
     box-sizing: border-box;
+    height: 100%;
+    color: #fff;
 }
 
 .logo, .logo:hover
 {
-    color: #ffffff
+    color: #ffffff;
 }
 
 .header
@@ -30,6 +32,11 @@
     background-color: rgb(75, 160, 240);
 }
 
+#label
+{
+    color: #666;
+}
+
 #submit 
 {
     background-color: #ffffff;
@@ -38,4 +45,17 @@
 .table
 {
     margin-top: 100px;
+}
+
+.result-body {
+    color: #666;
+}
+
+tr .result-col:first-child {
+    text-align-last: left;
+}
+
+.result-col
+{
+    text-align: center;
 }

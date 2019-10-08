@@ -27,17 +27,18 @@ function server(cb)
     });
     
     watch(['src/page/*.html', 'src/common.blocks/**/*.html'], html);
+
     watch([
         'src/page/*.scss', 
         'src/common.blocks/**/*.scss', 
-        'src/assets/css/*.scss'], css);
+        'src/assets/css/*.scss',
+        'src/assets/css/**/*.scss'], css);
 
     watch([
         'src/page/index.js', 
         'src/common.blocks/**/*.js', 
         'src/assets/js/*.js', 
-        'src/assets/js/**/*.js', 
-        '!src/assets/js/libs/*.js'], js);
+        'src/assets/js/**/*.js'], js);
 
     cb();
 }
@@ -85,12 +86,7 @@ function html(cb)
 
 function cssLib(cb)
 {
-    src(['src/assets/css/*.css', '!src/assets/css/libs/*.min.css'])
-        .pipe(concat('common.min.css'))
-        .pipe(postcss([ autoprefixer(), cssnano() ]))
-        .pipe(dest(`${assets}styles`));
-
-    src('src/assets/css/libs/*.min.css', 'dest/assets/styles/common.min.css')
+    src('src/assets/css/libs/*.min.css')
         .pipe(concat('common.min.css'))
         .pipe(dest(`${assets}styles`));
 
@@ -99,7 +95,13 @@ function cssLib(cb)
 
 function css(cb)
 {
-    src(['src/page/*.scss', 'src/common.blocks/**/*.scss'])
+    src([
+        'src/page/*.scss', 
+        'src/common.blocks/**/*.scss', 
+        'src/assets/css/*.scss',
+        'src/assets/css/**/*.scss',
+        '!src/assest/css/libs/*.scss'])
+
         .pipe(sass().on('error', sass.logError))
         .pipe(concat('index.min.css'))
         .pipe(rename(function(path) {
@@ -114,10 +116,6 @@ function css(cb)
 
 function jsLib(cb)
 {
-    src(['src/assets/js/libs/*.js', '!src/assets/js/libs/*.min.js'])
-        .pipe(concat('common.min.js'))
-        .pipe(dest(`${assets}scripts`));
-
     src(['src/assets/js/libs/*.min.js'])
         .pipe(concat('common.min.js'))
         .pipe(dest(`${assets}scripts`));
