@@ -12,11 +12,11 @@
     <div class="header">
         <div class="container">
             <div class="logo">
-                <a href="#" class="uk-logo" id="project">Project</a>
+                <a href="#" class="uk-logo logo" id="project">Project</a>
             </div>
         </div>
     </div>
-    <div class="section">
+    <div class="section uk-flex uk-flex-middle">
         <div class="container">
             <div class="form" id="form">
                 <div class="row" uk-grid>
@@ -31,6 +31,14 @@
                                 ng-blur="validateString(subject)"
                                 id="subject"
                                 ng-model="subject">
+
+                            <div id="lessonDropdown" uk-dropdown="mode: click">
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li ng-repeat="lesson in lessons | filter: subject">
+                                        <a class="uk-dropdown-close" ng-click="enterLesson(lesson)">{{ lesson }}</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -53,11 +61,43 @@
     
                     <scroll-rating class="uk-flex uk-flex-middle"></scroll-rating>
                 </div>
+
+                <div class="row uk-margin-top uk-flex-bottom" uk-grid>
+                    <div class="input-num-employ uk-width-1-2">
+                        <label for="numEmploy" class="uk-form-label">Введите количество пропущенных занятий:</label>
+                        <div class="uk-form-controls">
+                            <input 
+                                type="number" 
+                                name="numEmploy" 
+                                class="uk-input uk-width-1-1" 
+                                ng-focus="clearNumEmploy()"
+                                ng-blur="validateNumEmploy(numEmploy)"
+                                ng-change="checkNumEmploy()"
+                                id="numEmploy"
+                                ng-model="numEmploy">
+                        </div>
+                    </div>
+                    <div class="input-num-sucess-employ">
+                        <label for="numSuccessEmploy" class="uk-form-label">Из них по уважительной причине:</label>
+                        <div class="uk-form-controls">
+                            <input 
+                                type="number" 
+                                name="numSuccessEmploy" 
+                                class="uk-input uk-width-1-1" 
+                                ng-focus="clearNumSuccessEmploy()"
+                                ng-blur="validateNumSuccessEmploy(numSuccessEmploy)"
+                                ng-change="checkNumSuccessEmploy()"
+                                id="numSuccessEmploy"
+                                ng-model="numSuccessEmploy">
+                        </div>
+                    </div>
+                </div>
+                <button class="uk-button uk-button-default uk-margin-top" type="submit" id="submit" ng-click="validateForm()">Узнать результат</button>
             </div>
         </div>
     </div>
     <div class="footer">
-        <div class="uk-container">
+        <div class="container">
             <div id="ya-share2"></div>
         </div>
     </div>

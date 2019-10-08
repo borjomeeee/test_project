@@ -1,7 +1,34 @@
-.container {
+.container 
+{
     max-width: 560px;
-    background-color: #f0f0f0;
     margin: 0px auto;
     padding: 10px 20px;
     box-sizing: border-box;
+}
+
+.logo, .logo:hover
+{
+    color: #ffffff
+}
+
+.header
+{
+    height: 10vh;
+    background-color: rgb(75, 160, 240);
+}
+
+.section
+{
+    height: 80vh;
+}
+
+.footer
+{
+    height: 10vh;
+    background-color: rgb(75, 160, 240);
+}
+
+#submit 
+{
+    background-color: #ffffff;
 }

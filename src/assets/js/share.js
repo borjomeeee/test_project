@@ -11,7 +11,7 @@ module.exports = () => {
         theme: {
             services: 'facebook,odnoklassniki,vkontakte,twitter,telegram',
             lang: 'ru',
-            limit: 3,
+            limit: 5,
             size: 'm',
             copy: 'hidden'
         }
