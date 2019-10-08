@@ -54,7 +54,7 @@ function validateForm(lessons) {
     validateNumSuccessEmploy(numSuccessEmploy.val());
 
     let ratings = $('.rating-input');
-    ratings.each((indx, elem) => validateRating($(elem).val(), indx));
+    ratings.each(function(indx, elem) { validateRating($(elem).val(), indx); });
 
     if($('.' + dangerForm).length == 0) {
         return true;
