@@ -99,6 +99,7 @@ module.exports = function($scope, $http) {
             let user = new Object({
                 course: $scope.currCourse,
                 subject: $scope.subject,
+                numRating: $scope.numRating,
                 abcRating: Alghoritms.abcRating($scope.ratings),
                 numEmploy: $scope.numEmploy,
                 numSuccessEmploy: $scope.numSuccessEmploy,
